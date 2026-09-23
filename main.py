@@ -1,4 +1,9 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+class LinkRequest(BaseModel):
+    deal_id:int
+    amount:float 
 
 app=FastAPI()
 
@@ -13,3 +18,11 @@ def get_deal(deal_id:int):
 @app.get("/search")
 def search(name:str="shayaan",limit:int=5):
     return {"name":name,"limit":limit}
+
+@app.post("/create-link")
+def creat_link(data:LinkRequest):
+    return{
+        "message":"would create a link here",
+        "deal_id":data.deal_id,
+        "amount:":data.amount
+    }
