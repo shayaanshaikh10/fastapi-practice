@@ -9,3 +9,7 @@ def home():
 @app.get("/deals/{deal_id}")
 def get_deal(deal_id:int):
     return {"deal_id":deal_id,"amount": 5000}
+
+@app.get("/search")
+def search(name:str="shayaan",limit:int=5):
+    return {"name":name,"limit":limit}
