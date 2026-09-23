@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel
 
 class LinkRequest(BaseModel):
@@ -21,6 +21,10 @@ def search(name:str="shayaan",limit:int=5):
 
 @app.post("/create-link")
 def creat_link(data:LinkRequest):
+    if data.deal_id<1:
+        return HTTPException(status_code=400,detail="deal id should be postive")
+    if data.amount<=0:
+        return HTTPException(status_code=400,detail="amount must be greater than zero")
     return{
         "message":"would create a link here",
         "deal_id":data.deal_id,
